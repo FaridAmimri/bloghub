@@ -1,9 +1,9 @@
 /** @format */
 
-import React from 'react'
+import styles from './page.module.css'
 
 const Contact = () => {
-  return <div>About</div>
+  return <div className={styles.container}>Contact</div>
 }
 
 export default Contact
