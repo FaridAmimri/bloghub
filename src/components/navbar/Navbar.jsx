@@ -3,6 +3,7 @@
 
 import Link from 'next/link'
 import styles from './navbar.module.css'
+import DarkMode from '../darkMode/DarkMode'
 
 const links = [
   {
@@ -44,6 +45,7 @@ const Navbar = () => {
         Blog Hub
       </Link>
       <div className={styles.links}>
+        <DarkMode />
         {links.map((link) => (
           <Link key={link.id} href={link.url} className={styles.link}>
             {link.title}

@@ -8,11 +8,8 @@
 
 html,
 body {
-  max-width: 1150px;
   margin: 0 auto;
   overflow-x: hidden;
-  background-color: #111;
-  color: #bbb;
 }
 
 a {
@@ -20,10 +17,27 @@ a {
   text-decoration: none;
 }
 
+.theme {
+  max-width: 1500px;
+  margin: auto;
+  padding: 0 30px;
+  transition: 1s all ease;
+}
+
+.light {
+  background-color: white;
+  color: #111;
+}
+
+.dark {
+  background-color: #111;
+  color: #bbb;
+}
+
 .container {
   min-height: 100vh;
   margin: 0 auto;
-  padding: 0 60px;
+  padding: 20px 60px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
