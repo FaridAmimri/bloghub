@@ -1,10 +1,8 @@
 /** @format */
 
-import mongoose from 'mongoose'
+import { Schema, models, model } from 'mongoose'
 
-const { Schema } = mongoose
-
-const postSchema = new Schema(
+const PostSchema = new Schema(
   {
     title: {
       type: String,
@@ -30,4 +28,7 @@ const postSchema = new Schema(
   { timestamps: true }
 )
 
-export default mongoose.model('Post', postSchema)
+//If the Post collection does not exist create a new one.
+const Post = models.Post || model('Post', PostSchema)
+
+export default Post
