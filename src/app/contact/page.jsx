@@ -4,6 +4,11 @@ import Image from 'next/image'
 import styles from './page.module.css'
 import Button from '@/components/button/Button'
 
+export const metadata = {
+  title: 'Blog Hub Contact Information',
+  description: 'Formulaire de contact'
+}
+
 const Contact = () => {
   return (
     <div className={styles.container}>
