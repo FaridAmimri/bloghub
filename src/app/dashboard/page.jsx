@@ -2,8 +2,8 @@
 'use client'
 
 import styles from './page.module.css'
-import { useState } from 'react'
 import useSWR from 'swr'
+import { useSession, signIn, signOut } from 'next-auth/react'
 
 const Dashboard = () => {
   const fetcher = (...args) => fetch(...args).then((res) => res.json())
@@ -32,7 +32,8 @@ const Dashboard = () => {
   //   getData()
   // }, [])
 
-  console.log(data)
+  const session = useSession()
+  console.log(session)
 
   return <div className={styles.container}>Dashboard</div>
 }
