@@ -5,9 +5,9 @@ import connectToDB from '@/utils/database'
 import Post from '@/models/Post'
 
 export const GET = async (req) => {
-  try {
-    await connectToDB()
+  await connectToDB()
 
+  try {
     const posts = await Post.find()
 
     return new NextResponse(JSON.stringify(posts), { status: 200 })
