@@ -4,18 +4,24 @@
 
 import Link from 'next/link'
 import styles from './page.module.css'
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 const Login = () => {
-  const handleSubmit = async (e) => {
+  const session = useSession()
+  const router = useRouter()
+
+  if (session.status === 'authenticated') {
+    router?.push('/dashboard')
+  }
+
+  const handleSubmit = (e) => {
     e.preventDefault()
 
     const user = {
       email: e.target[0].value,
       password: e.target[1].value
     }
-
-    console.log(user)
 
     signIn('credentials', user)
   }
@@ -38,7 +44,8 @@ const Login = () => {
         <button className={styles.button}>Login</button>
       </form>
       <button
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault()
           signIn('google')
         }}
         className={styles.button + ' ' + styles.google}
