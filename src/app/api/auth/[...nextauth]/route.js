@@ -9,6 +9,10 @@ import bcrypt from 'bcryptjs'
 
 const handler = NextAuth({
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+    }),
     CredentialsProvider({
       id: 'credentials',
       name: 'credentials',
@@ -16,8 +20,9 @@ const handler = NextAuth({
         await connectToDB()
 
         try {
+          //Check if the user exists
           const user = await User.findOne({
-            email: credentials.email
+            email: credentials?.email
           })
 
           if (user) {
@@ -38,14 +43,21 @@ const handler = NextAuth({
           throw new Error(error)
         }
       }
-    }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET
     })
   ],
+  callbacks: {
+    async session({ session }) {
+      // store the user id & username from MongoDB to session
+      const sessionUser = await User.findOne({ email: session.user.email })
+      session.user.name = sessionUser.username
+      session.user.id = sessionUser._id.toString()
+      session.user.image = sessionUser.image || ''
+
+      return session
+    }
+  },
   pages: {
-    error: '/dashboard/login'
+    error: '/login'
   }
 })
 
